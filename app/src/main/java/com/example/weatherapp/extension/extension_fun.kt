@@ -12,6 +12,6 @@ fun String.capitalizeFirstCharacterOfEachWord(): String {
     return newString.trimEnd()
 }
 
-fun Double.convertKelvinToCelsius() : Double = this - 273.15
+fun Double.convertKelvinToCelsius(): Double = this - 273.15
 
-fun Double.makeReadableFormat() : String = "${this.roundToInt()} \u2103"
+fun Double.makeReadableFormat(): String = "${this.roundToInt()} \u2103"

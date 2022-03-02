@@ -1,7 +1,7 @@
 package com.example.weatherapp.di
 
-import com.example.weatherapp.model.data.WeatherRepo
-import com.example.weatherapp.model.data.WeatherRepositoryImpl
+import com.example.weatherapp.data.WeatherRepo
+import com.example.weatherapp.data.WeatherRepositoryImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

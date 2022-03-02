@@ -1,4 +1,4 @@
-package com.example.weatherapp.model.model_class
+package com.example.weatherapp.model
 
 data class WeatherResponse(
     val cod: String,

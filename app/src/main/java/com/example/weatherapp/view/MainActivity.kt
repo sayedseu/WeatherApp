@@ -27,8 +27,8 @@ class MainActivity : AppCompatActivity() {
         val appBarConfig = AppBarConfiguration(navController.graph)
         binding.toolbar.setupWithNavController(navController, appBarConfig)
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            if (destination.id == R.id.mapViewFragment) {
-                binding.toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24)
+            if (destination.id == R.id.mapsFragment) {
+                binding.toolbar.setNavigationIcon(R.drawable.ic_arrow_back)
             }
         }
     }

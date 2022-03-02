@@ -9,14 +9,14 @@
         android:id="@+id/cityListFragment"
         android:name="com.example.weatherapp.view.CityListFragment"
         android:label="@string/app_name"
-        tools:layout="@layout/fragment_city_list" >
+        tools:layout="@layout/fragment_city_list">
         <action
-            android:id="@+id/action_cityListFragment_to_mapViewFragment"
-            app:destination="@id/mapViewFragment" />
+            android:id="@+id/action_cityListFragment_to_mapsFragment"
+            app:destination="@id/mapsFragment" />
     </fragment>
     <fragment
-        android:id="@+id/mapViewFragment"
-        android:name="com.example.weatherapp.view.MapViewFragment"
+        android:id="@+id/mapsFragment"
+        android:name="com.example.weatherapp.view.MapsFragment"
         android:label="@string/app_name"
-        tools:layout="@layout/fragment_map_view" />
+        tools:layout="@layout/fragment_maps" />
 </navigation>

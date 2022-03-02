@@ -7,7 +7,7 @@ import com.example.weatherapp.databinding.CityItemBinding
 import com.example.weatherapp.extension.capitalizeFirstCharacterOfEachWord
 import com.example.weatherapp.extension.convertKelvinToCelsius
 import com.example.weatherapp.extension.makeReadableFormat
-import com.example.weatherapp.model.model_class.WeatherData
+import com.example.weatherapp.model.WeatherData
 import javax.inject.Inject
 
 class CityListAdapter @Inject constructor() :

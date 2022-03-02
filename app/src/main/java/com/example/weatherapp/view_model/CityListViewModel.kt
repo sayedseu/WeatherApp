@@ -4,9 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.weatherapp.model.data.ResponseState
-import com.example.weatherapp.model.data.WeatherRepo
-import com.example.weatherapp.model.model_class.WeatherResponse
+import com.example.weatherapp.data.ResponseState
+import com.example.weatherapp.data.WeatherRepo
+import com.example.weatherapp.model.WeatherResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject

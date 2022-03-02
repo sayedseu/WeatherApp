@@ -1,4 +1,4 @@
-package com.example.weatherapp.model.data
+package com.example.weatherapp.data
 
 sealed class ResponseState<out T> {
     object Loading : ResponseState<Nothing>()
