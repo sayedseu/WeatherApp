@@ -1,33 +1,27 @@
 package com.example.weatherapp.view
 
-import android.annotation.SuppressLint
-import android.location.Location
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
+import androidx.work.*
 import com.example.weatherapp.R
 import com.example.weatherapp.databinding.ActivityMainBinding
 import com.example.weatherapp.utils.LocationHelper
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationRequest
-import com.google.android.gms.location.LocationServices
-import com.google.android.gms.tasks.CancellationTokenSource
+import com.example.weatherapp.utils.NotificationWorker
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-
     @Inject
     lateinit var locationHelper: LocationHelper
     private lateinit var binding: ActivityMainBinding
-    private lateinit var fusedLocationClient: FusedLocationProviderClient
 
-
-    @SuppressLint("MissingPermission")
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
@@ -37,13 +31,7 @@ class MainActivity : AppCompatActivity() {
         if (!locationHelper.isLocationPermissionGranted()) {
             locationHelper.requestLocationPermission(this)
         } else {
-            fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-            fusedLocationClient.getCurrentLocation(
-               LocationRequest.PRIORITY_HIGH_ACCURACY,
-                CancellationTokenSource().token
-            ).addOnSuccessListener { location: Location? ->
-                Log.d("Hasan", "onResume: ${location?.latitude} ${location?.longitude}")
-            }
+            sendWorkRequest()
         }
     }
 
@@ -57,6 +45,38 @@ class MainActivity : AppCompatActivity() {
                 binding.toolbar.setNavigationIcon(R.drawable.ic_arrow_back)
             }
         }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == locationHelper.PERMISSION_REQUEST_CODE) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                sendWorkRequest()
+            }
+        }
+    }
+
+    private fun sendWorkRequest() {
+        val constraints = Constraints.Builder()
+            .setRequiredNetworkType(NetworkType.CONNECTED)
+            .build()
+        val notificationWorkRequest =
+            PeriodicWorkRequest.Builder(NotificationWorker::class.java, 24, TimeUnit.HOURS)
+                .addTag("TAG_SEND_NOTIFICATION")
+                .setBackoffCriteria(BackoffPolicy.LINEAR, 15, TimeUnit.MINUTES)
+                .setConstraints(constraints)
+                .build()
+        WorkManager
+            .getInstance(applicationContext)
+            .enqueueUniquePeriodicWork(
+                "NOTIFICATION_WORK",
+                ExistingPeriodicWorkPolicy.REPLACE,
+                notificationWorkRequest
+            )
     }
 
 }

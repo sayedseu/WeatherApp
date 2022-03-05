@@ -76,4 +76,11 @@ dependencies {
     def core_version = "1.6.0"
     implementation "androidx.core:core-ktx:$core_version"
 
+    //work manager
+    def work_version = "2.7.1"
+    implementation "androidx.work:work-runtime:$work_version"
+    implementation 'androidx.hilt:hilt-work:1.0.0'
+    kapt("androidx.hilt:hilt-compiler:1.0.0")
+
+
 }

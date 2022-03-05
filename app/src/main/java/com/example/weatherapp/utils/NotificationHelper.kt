@@ -28,11 +28,11 @@ class NotificationHelper(private val context: Context) {
         }
     }
 
-    fun sendNotification() {
+    fun sendNotification(message: String) {
         val builder = NotificationCompat.Builder(context, CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_notifications)
-            .setContentTitle("My notification")
-            .setContentText("Hello World!")
+            .setContentTitle("WeatherApp")
+            .setContentText(message)
             .setLargeIcon(
                 BitmapFactory.decodeResource(
                     context.resources,

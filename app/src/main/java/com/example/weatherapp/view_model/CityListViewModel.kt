@@ -19,16 +19,17 @@ class CityListViewModel @Inject constructor(private val weatherRepo: WeatherRepo
     fun weatherLiveData(): LiveData<ResponseState<WeatherResponse>> = weatherData
 
     fun getWeatherData() {
+        if (weatherData.value != null) return
         viewModelScope.launch {
             weatherData.value = ResponseState.Loading
             try {
-                val options: MutableMap<String, String> = mutableMapOf(
+                val parameters: MutableMap<String, String> = mutableMapOf(
                     "lat" to "23.68",
                     "lon" to "90.35",
                     "cnt" to "50",
                     "appid" to "e384f9ac095b2109c751d95296f8ea76",
                 )
-                weatherData.value = ResponseState.Success(weatherRepo.getWeatherData(options))
+                weatherData.value = ResponseState.Success(weatherRepo.getWeatherData(parameters))
             } catch (exception: Exception) {
                 weatherData.value = ResponseState.Error(exception)
             }
